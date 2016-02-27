@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+#get 2 args from console and print TOKEN to stdout
 
 import cookielib
 import urllib2
 import urllib
 from urlparse import urlparse
 from HTMLParser import HTMLParser
+import sys
 
 class FormParser(HTMLParser):
     def __init__(self):
@@ -100,3 +102,13 @@ def auth(email, password, client_id, scope):
         raise RuntimeError("Missing some values in answer")
     return answer["access_token"], answer["user_id"]
 
+def main(argv):
+    client_id = "2951857" # Vk application ID
+    email = argv[0]
+    password = argv[1]
+
+    token, user_id = auth(email, password, client_id, "photos")
+    print token
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
